@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malicious App Detector</title>
+    <!-- Link to external CSS for styling -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Malicious App Detector</h1>
+        <p class="subtitle">Select the permissions requested by the mobile application to predict if it is malicious or benign.</p>
+        
+        <form id="permissionForm">
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="internet" name="internet" value="1">
+                    <span class="custom-checkbox"></span>
+                    Internet Permission
+                </label>
+            </div>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="sms" name="sms" value="1">
+                    <span class="custom-checkbox"></span>
+                    Send SMS
+                </label>
+            </div>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="contacts" name="contacts" value="1">
+                    <span class="custom-checkbox"></span>
+                    Read Contacts
+                </label>
+            </div>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="camera" name="camera" value="1">
+                    <span class="custom-checkbox"></span>
+                    Camera Access
+                </label>
+            </div>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="audio" name="audio" value="1">
+                    <span class="custom-checkbox"></span>
+                    Audio Recording
+                </label>
+            </div>
+            <button type="submit" id="submitBtn">Analyze Application</button>
+        </form>
+
+        <div id="resultBox" class="hidden">
+            <h2>Prediction Result</h2>
+            <p id="predictionText"></p>
+        </div>
+    </div>
+    
+    <!-- Link to external JS for frontend logic -->
+    <script src="script.js"></script>
+</body>
+</html>
