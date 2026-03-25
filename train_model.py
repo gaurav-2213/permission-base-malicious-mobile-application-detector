@@ -12,12 +12,20 @@ import os
 os.makedirs('graphs', exist_ok=True)
 
 # 1. Load dataset
-print("Loading dataset.csv...")
+print("Android_Malware_Benign.csv...")
 df = pd.read_csv('Android_Malware_Benign.csv')
-
+df.columns=df.columns.str.lower()
+print(df.columns)
 # Features and target
-X = df[['internet', 'sms', 'contacts', 'camera', 'audio']]
-y = df['result']
+features_map = {
+    'android.permission.internet': 'internet',
+    'android.permission.send_sms': 'sms',
+    'android.permission.read_contacts': 'contacts',
+    'android.permission.camera': 'camera',
+    'android.permission.record_audio': 'audio'
+}
+X = df[list(features_map.keys())].rename(columns=features_map)
+y = df['label']
 
 # 2. Split data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -68,6 +76,6 @@ plt.title('Feature Importance')
 plt.xlabel('Importance')
 plt.ylabel('Features')
 plt.savefig('graphs/feature_importance.png')
-plt.close()
+# plt.show()
 
 print("Training complete! Model 'model.pkl' and graphs saved successfully.")

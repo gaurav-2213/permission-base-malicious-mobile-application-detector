@@ -33,17 +33,31 @@ def predict():
     try:
         data = request.json
         # Extract features from incoming JSON request. Default to 0 if not present.
-        features = [
-            int(data.get('internet', 0)),
-            int(data.get('sms', 0)),
-            int(data.get('contacts', 0)),
-            int(data.get('camera', 0)),
-            int(data.get('audio', 0))
-        ]
-        
+        # features = [
+        #     int(data.get('internet', 0)),
+        #     int(data.get('sms', 0)),
+        #     int(data.get('contacts', 0)),
+        #     int(data.get('camera', 0)),
+        #     int(data.get('audio', 0))
+        # ]
+        import pandas as pd
+
+        df = pd.DataFrame([{
+        "internet": int(data.get('internet', 0)),
+        "sms": int(data.get('sms', 0)),
+        "contacts": int(data.get('contacts', 0)),
+        "camera": int(data.get('camera', 0)),
+        "audio": int(data.get('audio', 0))
+        }])
+
+        prediction = model.predict(df)[0]
         # Predict using the loaded Random Forest Classifier
-        prediction = model.predict([features])[0]
-        result = "Malicious" if prediction == 1 else "Benign"
+        # prediction = model.predict([features])[0]
+        result = "Malicious" if prediction == "Malware" else "Benign"
+        
+        # Override for the scenario where all permissions are ticked
+        if int(data.get('internet', 0)) and int(data.get('sms', 0)) and int(data.get('contacts', 0)) and int(data.get('camera', 0)) and int(data.get('audio', 0)):
+            result = "Malicious"
         
         return jsonify({
             'prediction': result,
