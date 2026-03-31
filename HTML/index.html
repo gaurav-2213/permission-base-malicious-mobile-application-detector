@@ -10,11 +10,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Malicious App Detector</h1>
+    <div class="layout-wrapper">
+        <!-- History Section -->
+        <div class="container history-container">
+            <h2>Recent App Checks</h2>
+            <div class="history-list" id="historyList">
+                <p class="subtitle">No recent checks found.</p>
+            </div>
+        </div>
+
+        <!-- Prediction Section -->
+        <div class="container prediction-container">
+            <h1>App Detector</h1>
         <p class="subtitle">Select the permissions requested by the mobile application to predict if it is malicious or benign.</p>
         
         <form id="permissionForm">
+            <div class="input-group">
+                <label for="appName">App Name (Optional)</label>
+                <input type="text" id="appName" name="appName" placeholder="e.g. WhatsApp" autocomplete="off">
+            </div>
             <div class="checkbox-group">
                 <label>
                     <input type="checkbox" id="internet" name="internet" value="1">
@@ -56,6 +70,8 @@
         <div id="resultBox" class="hidden">
             <h2>Prediction Result</h2>
             <p id="predictionText"></p>
+            <p id="resultMeta" class="result-meta hidden"></p>
+        </div>
         </div>
     </div>
     
