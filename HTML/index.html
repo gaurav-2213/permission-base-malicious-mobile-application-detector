@@ -10,7 +10,85 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
     <div class="layout-wrapper">
+        <!-- Dashboard / Threat Meter -->
+        <div class="container dashboard-container">
+            <div class="dashboard-header">
+                <div>
+                    <div class="eyebrow">Real-Time Threat Meter</div>
+                    <h1 class="brand-title">Security Dashboard</h1>
+                    <p class="subtitle">Live scan simulation with professional neon + glass UI.</p>
+                </div>
+
+                <div class="export-actions">
+                    <button type="button" class="btn-secondary" id="notifyBtn" title="Enable browser alerts">Enable Alerts</button>
+                    <button type="button" class="btn-secondary" id="exportJsonBtn">Export JSON</button>
+                    <button type="button" class="btn-secondary" id="exportCsvBtn">Export CSV</button>
+                    <button type="button" class="btn-primary" id="exportPdfBtn">Export PDF</button>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="meter-card">
+                    <div class="meter-top">
+                        <div class="meter-title">Threat Score</div>
+                        <div class="pill" id="tierPill">Unknown</div>
+                    </div>
+
+                    <div class="meter-wrap">
+                        <div class="radar" id="radar">
+                            <div class="radar-sweep"></div>
+                            <div class="radar-ring r1"></div>
+                            <div class="radar-ring r2"></div>
+                            <div class="radar-ring r3"></div>
+                            <div class="radar-dots"></div>
+                        </div>
+
+                        <svg class="gauge" viewBox="0 0 120 120" aria-label="Threat score gauge">
+                            <circle class="gauge-bg" cx="60" cy="60" r="46"></circle>
+                            <circle class="gauge-fg" cx="60" cy="60" r="46" pathLength="100"></circle>
+                        </svg>
+
+                        <div class="meter-center">
+                            <div class="score" id="scoreValue">--</div>
+                            <div class="score-label">/ 100</div>
+                            <div class="reputation" id="reputationValue">Unknown</div>
+                        </div>
+                    </div>
+
+                    <div class="meter-footer">
+                        <div class="mini">
+                            <div class="mini-label">Risk</div>
+                            <div class="mini-value" id="riskValue">--</div>
+                        </div>
+                        <div class="mini">
+                            <div class="mini-label">Model</div>
+                            <div class="mini-value" id="modelMeta">--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="explain-card">
+                    <div class="card-title">AI Explanation</div>
+                    <p class="subtitle tight">Human-readable rationale based on detected permission patterns.</p>
+                    <div class="explain-box" id="aiExplain">
+                        Run a scan to generate an explanation.
+                    </div>
+                </div>
+
+                <div class="timeline-card">
+                    <div class="card-title">Threat Timeline</div>
+                    <div class="timeline-list" id="timelineList">
+                        <p class="subtitle">No events yet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- History Section -->
         <div class="container history-container">
             <h2>Recent App Checks</h2>
@@ -21,8 +99,8 @@
 
         <!-- Prediction Section -->
         <div class="container prediction-container">
-            <h1>App Detector</h1>
-        <p class="subtitle">Select the permissions requested by the mobile application to predict if it is malicious or benign.</p>
+            <h2 class="section-title">Scan an Application</h2>
+        <p class="subtitle">Select permissions requested by an app to estimate risk. This demo uses a trained ML model + heuristics.</p>
         
         <form id="permissionForm">
             <div class="input-group">
@@ -73,6 +151,11 @@
             <p id="resultMeta" class="result-meta hidden"></p>
         </div>
         </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">
+        <div class="toast-title" id="toastTitle">Alert</div>
+        <div class="toast-body" id="toastBody"></div>
     </div>
     
     <!-- Link to external JS for frontend logic -->
